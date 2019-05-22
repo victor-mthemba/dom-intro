@@ -6,7 +6,7 @@ var totalCostElem = document.querySelector(".totalOne");
 
 
 function textBillTotal(){
-    // get the value entered in the billType textfield
+    
     var billTypeEntered = billTypeText.value.trim();
     // update the correct total
     if (billTypeEntered === "call"){
