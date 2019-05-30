@@ -19,7 +19,7 @@ var smsCost =0;
 var warningLevel = 0;
 var criticalLevel = 0;
 // create a variables that will keep track of all three totals.
-var callTotal = 0;
+var callTotals = 0;
 var smsTotal = 0;
 var totalTwoS = 0;
 
@@ -38,27 +38,36 @@ function textBillTotal() {
         var billItemTypeTwos = document.querySelector("input[name='billItemTypeWithSettings']:checked");
 
         if (billItemTypeTwos.value === "call") {
-            callTotal += callCost;
+            callTotals += callCost;
         }
         else if (billItemTypeTwos.value === "sms") {
             smsTotal += smsCost;
         }
     }
     //update the totals that is displayed on the screen.
-    callTotalElement.innerHTML = callTotal.toFixed(2);
+    callTotalElement.innerHTML = callTotals.toFixed(2);
     smsTotalElement.innerHTML = smsTotal.toFixed(2);
-    totalTwoS = callTotal + smsTotal;
+    totalTwoS = callTotals + smsTotal;
     totalElement.innerHTML = totalTwoS.toFixed(2);
 
     // //color the total based on the criteria
     colorTest();
+
+    if(totalTwoS >= criticalLevel)
+    {
+        radioAddBtn.disabled = true;
+    }
+    if(totalTwoS < criticalLevel){
+        radioAddBtn.disabled = false;
+
+    }
     
 }
 
 radioAddBtn.addEventListener('click', textBillTotal);
 
 function updateSettings() {
-    var settingBtn = document.querySelector(".updateSettings");
+     settingBtn = document.querySelector(".updateSettings");
 
     callCost = Number(callCostSetting.value);
     smsCost = Number(smsCostSetting.value);
@@ -66,6 +75,15 @@ function updateSettings() {
     criticalLevel = Number(criticalLevelSetting.value);
 
     colorTest();
+
+    if(totalTwoS >= criticalLevel)
+    {
+        radioAddBtn.disabled = true;
+    }
+    if(totalTwoS < criticalLevel){
+        radioAddBtn.disabled = false;
+
+    }
 }
 
 settingBtn.addEventListener('click', updateSettings);
