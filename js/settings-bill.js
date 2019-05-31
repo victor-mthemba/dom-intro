@@ -20,7 +20,7 @@ var warningLevel = 0;
 var criticalLevel = 0;
 // create a variables that will keep track of all three totals.
 var callTotals = 0;
-var smsTotal = 0;
+var smsTotals = 0;
 var totalTwoS = 0;
 
 //add an event listener for when the 'Update settings' button is pressed
@@ -41,13 +41,13 @@ function textBillTotal() {
             callTotals += callCost;
         }
         else if (billItemTypeTwos.value === "sms") {
-            smsTotal += smsCost;
+            smsTotals += smsCost;
         }
     }
     //update the totals that is displayed on the screen.
     callTotalElement.innerHTML = callTotals.toFixed(2);
-    smsTotalElement.innerHTML = smsTotal.toFixed(2);
-    totalTwoS = callTotals + smsTotal;
+    smsTotalElement.innerHTML = smsTotals.toFixed(2);
+    totalTwoS = callTotals + smsTotals;
     totalElement.innerHTML = totalTwoS.toFixed(2);
 
     // //color the total based on the criteria
