@@ -23,25 +23,27 @@ function calculateBtnClicked() {
     var billItems = billString.split(",");
     // a variable for the total phone bill.
     var billTotal = 0;
+
+    var calculateBill1 = calculateBill();
     //loop over all the bill items
     for (var i = 0; i < billItems.length; i++) {
         var billItem = billItems[i].trim();
-        if (billItem === "call") {
+        if (calculateBill1.totalCost(call)) {
             billTotal += 2.75;
         }
-        else if (billItem === "sms") {
+        else if (calculateBill1.totalCost(sms)) {
             billTotal += 0.75;
         }
     }
 
     //round to two decimals
     var roundedBillTotal = billTotal.toFixed(2);
-    if (billTotal >= 30) {
+    if (calculateBill1.getCritical()) {
 
         billTotalElement.classList.add("danger");
         billTotalElement.classList.remove("warning");
     }
-    else if (billTotal >= 20) {
+    else if (calculateBill1.getWarning()) {
         billTotalElement.classList.add("warning");
         billTotalElement.classList.remove("danger");
     }
