@@ -14,53 +14,23 @@ var radioAddBtn = document.querySelector(".addBtn");
 //get a reference to the 'Update settings' button
 var settingBtn = document.querySelector(".updateSettings");
 // create a variables that will keep track of all the settings
-var callCost = 0;
-var smsCost =0;
-var warningLevel = 0;
-var criticalLevel = 0;
-// create a variables that will keep track of all three totals.
-var callTotals = 0;
-var smsTotals = 0;
-var totalTwoS = 0;
 
-//add an event listener for when the 'Update settings' button is pressed
-//settingBtn.addEventListener('click', );
-//add an event listener for when the add button is pressed
-//in the event listener get the value from the billItemTypeRadio radio buttons
-// * add the appropriate value to the call / sms total
-// * add the appropriate value to the overall total
-// * add nothing for invalid values that is not 'call' or 'sms'.
-// * display the latest total on the screen.
-// * check the value thresholds and display the total value in the right color.
+
+var calculateInstanceTwo = TotalBill();
+
 function textBillTotal() {
     var radioAddBtn = document.querySelector(".addBtn");
     if (radioAddBtn) {
         var billItemTypeTwos = document.querySelector("input[name='billItemTypeWithSettings']:checked");
 
-        if (billItemTypeTwos.value === "call") {
-            callTotals += callCost;
-        }
-        else if (billItemTypeTwos.value === "sms") {
-            smsTotals += smsCost;
-        }
+        calculateInstanceTwo.add(billItemTypeTwos.value);
     }
-    //update the totals that is displayed on the screen.
-    callTotalElement.innerHTML = callTotals.toFixed(2);
-    smsTotalElement.innerHTML = smsTotals.toFixed(2);
-    totalTwoS = callTotals + smsTotals;
-    totalElement.innerHTML = totalTwoS.toFixed(2);
-
     // //color the total based on the criteria
     colorTest();
 
-    if(totalTwoS >= criticalLevel)
-    {
-        radioAddBtn.disabled = true;
-    }
-    if(totalTwoS < criticalLevel){
-        radioAddBtn.disabled = false;
-
-    }
+    callTotalElement.innerHTML = calculateInstanceTwo.getCallTotal();
+    smsTotalElement.innerHTML = calculateInstanceTwo.getSmsTotal();
+    totalElement.innerHTML = calculateInstanceTwo.getTotal();
     
 }
 
@@ -69,33 +39,24 @@ radioAddBtn.addEventListener('click', textBillTotal);
 function updateSettings() {
      settingBtn = document.querySelector(".updateSettings");
 
-    callCost = Number(callCostSetting.value);
-    smsCost = Number(smsCostSetting.value);
-    warningLevel = Number(warningLevelSetting.value);
-    criticalLevel = Number(criticalLevelSetting.value);
+     calculateInstanceTwo.updateData(callCostSetting.value,smsCostSetting.value,warningLevelSetting.value,criticalLevelSetting.value);
 
     colorTest();
 
-    if(totalTwoS >= criticalLevel)
-    {
-        radioAddBtn.disabled = true;
-    }
-    if(totalTwoS < criticalLevel){
-        radioAddBtn.disabled = false;
-
-    }
 }
 
 settingBtn.addEventListener('click', updateSettings);
 
 function colorTest(){
-    if (totalTwoS >= criticalLevel) {
+    if (calculateInstanceTwo.checkCritical()) {
         // adding the danger class will make the text red
         totalElement.classList.add("danger");
+        radioAddBtn.disabled = true;
     }
-    else if (totalTwoS >= warningLevel) {
+    else if (calculateInstanceTwo.checkWarning()) {
         totalElement.classList.add("warning");
         totalElement.classList.remove("danger");
+        radioAddBtn.disabled = false;
     }
     else{
         totalElement.classList.remove("warning");

@@ -1,125 +1,47 @@
 describe("The  bill setting", function(){
 
-    it("should be able to return correct  call total if call is made and total", function(){
-      var totalbill = settingBill();
+    it("should be able to return correct  call total if call is set and total", function(){
+      var totalbill = TotalBill();
 
-      totalbill.callCost('call');
-      
-
-      assert.equal(2.75, totalbill.totalCost());
-      assert.equal(2.75, totalbill.callCost())
-
+        totalbill.updateData(10,0,0,0);
+        totalbill.add('call');
+      assert.equal(10, totalbill.getTotal());
     });
-
-    it("should be able to return correct  call total if call is made and sms total and total", function(){
-      var totalbill = settingBill();
-
-      totalbill.callCost('call');
-      totalbill.smsCost('sms');
-      
-      
-
-      assert.equal(3.50, totalbill.totalCost());
-      assert.equal(2.75, totalbill.callCost());
-      assert.equal(0.75, totalbill.smsCost());
-    });
-
-    it("should be able to return correct  sms total if call is made and total", function(){
-      var totalbill = settingBill();
-
-      totalbill.smsCost('sms');
-      
-
-      assert.equal(0.75, totalbill.totalCost());
-      assert.equal(0.75, totalbill.smsCost());
-
-    });
-
-    it("should be able to return correct zero for call total if  no call is made and no sms is sent sms total and total", function(){
-      var totalbill = settingBill();
-
-      totalbill.callCost('');
-      totalbill.smsCost('');
-      
-      
-
-      assert.equal(0.00, totalbill.totalCost());
-      assert.equal(0.00, totalbill.callCost());
-      assert.equal(0.00, totalbill.smsCost());
-    });
-
-
-    it("should be able to return critical warning if total is greater or equal critical input", function(){
-      var totalbill = settingBill();
-
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('sms');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      
-      totalbill.totalCost()
-
-      assert.equal(true, totalbill.Critical());
-    });
-
-
-    it("should be able to return warning if total is greater or equal warning level input", function(){
-      var totalbill = settingBill();
-
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      totalbill.callCost('call');
-      
-      totalbill.totalCost();
-
-      
-
-      assert.equal(true, totalbill.Warning());
-    });
-
-
     
+
+    it("should be able to return correct  sms total if sms is set and total", function(){
+      var totalbill = TotalBill();
+
+        totalbill.updateData(0,20,0,0);
+        totalbill.add('sms');
+      assert.equal(20, totalbill.getTotal());
+    });
+    
+
+    it("should be able to return correct  sms total if sms is set and  call total if call is set and total", function(){
+      var totalbill = TotalBill();
+
+        totalbill.updateData(15,25,0,0);
+        totalbill.add('sms');
+        totalbill.add('call');
+
+      assert.equal(40, totalbill.getTotal());
+    });
+
+
+    it("should be able to return true  total is greater than  warning setting", function(){
+      var totalbill = TotalBill();
+
+        totalbill.updateData(5,5,15,0);
+        totalbill.add('call');
+        totalbill.add('sms');
+        totalbill.add('call');
+        totalbill.add('call');
+        totalbill.getTotal();
+
+      assert.equal(true, totalbill.checkWarning());
+    });
+
+
+
 });
