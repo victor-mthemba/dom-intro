@@ -22,7 +22,7 @@ function calculateBtnClicked() {
     //split the string
     var billItems = billString.split(",");
     // a variable for the total phone bill.
-    var billTotal = calculateInstance.totalCost(billItems);
+    calculateInstance.totalCost(billString);
 
 
     //round to two decimals
@@ -39,7 +39,7 @@ function calculateBtnClicked() {
         billTotalElement.classList.remove("danger");
     }
 
-    billTotalElement.innerHTML = billTotal;
+    billTotalElement.innerHTML = calculateInstance.total();
 
 
 }

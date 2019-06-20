@@ -14,7 +14,6 @@ function CalculateBill() {
         }
     }
 
-
     function getCritical() {
         return billTotal >= 30;
     }
@@ -25,7 +24,7 @@ function CalculateBill() {
 
 
     function displayTotal(){
-        return billTotal;
+        return billTotal.toFixed(2);
     }
 
     return {
@@ -33,6 +32,6 @@ function CalculateBill() {
         totalCost,
         getCritical,
         getWarning,
-        total : displayTotal
+        total: displayTotal,
     }
 }
