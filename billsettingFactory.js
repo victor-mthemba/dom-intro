@@ -29,7 +29,7 @@ function TotalBill() {
     function getTotal()
     {
         totalTwoS = smsTotals + callTotals
-        return totalTwoS;
+        return totalTwoS.toFixed(2);
     }
 
     function checkCritical(){
@@ -41,11 +41,11 @@ function TotalBill() {
     }
 
     function getCallTotal(){
-        return callTotals;
+        return callTotals.toFixed(2);
     }
 
     function getSmsTotal(){
-        return smsTotals;
+        return smsTotals.toFixed(2);
     }
 
     return {

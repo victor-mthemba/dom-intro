@@ -1,6 +1,6 @@
 describe("The  bill setting", function(){
 
-    it("should be able to return correct  call total if call is set and total", function(){
+    it("should be able to return correct  call total if call is made", function(){
       var totalbill = TotalBill();
 
         totalbill.updateData(10,0,0,0);
@@ -9,7 +9,7 @@ describe("The  bill setting", function(){
     });
     
 
-    it("should be able to return correct  sms total if sms is set and total", function(){
+    it("should be able to return correct  sms total if sms is sent", function(){
       var totalbill = TotalBill();
 
         totalbill.updateData(0,20,0,0);
@@ -18,7 +18,7 @@ describe("The  bill setting", function(){
     });
     
 
-    it("should be able to return correct  sms total if sms is set and  call total if call is set and total", function(){
+    it("should be able to return correct  sms total if sms is sent and  call total if call is made", function(){
       var totalbill = TotalBill();
 
         totalbill.updateData(15,25,0,0);
@@ -29,7 +29,7 @@ describe("The  bill setting", function(){
     });
 
 
-    it("should be able to return true  total is greater than  warning setting", function(){
+    it("should be able to return true if total is greater than  warning setting", function(){
       var totalbill = TotalBill();
 
         totalbill.updateData(5,5,15,0);
