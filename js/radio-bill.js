@@ -30,7 +30,7 @@ function radioBillTotal(){
         colorChange
     };
 
-    var dataInTempOne = totalsTemplates(templateDataOne);
+    var dataInTempOne = totalsTemplatesOne(templateDataOne);
     totalsElmOne.innerHTML = dataInTempOne;
 }
 

@@ -4,23 +4,29 @@ var callsTotalElem = document.querySelector(".callTotalOne");
 var smsTotalElem = document.querySelector(".smsTotalOne")
 var totalCostElem = document.querySelector(".totalOne");
 
-var instance = TextBill();
+var instanceForText = TextBill();
 
 var totalsElm = document.querySelector(".billTotals");
 var template = document.querySelector(".totalsTemplates").innerHTML;
 
 var totalsTemplates = Handlebars.compile(template);
 textBillTotal();
+textTotalAddBtn.addEventListener("click", function () {
+let showValue = billTypeTextElem.value;
+console.log(showValue);
 
-function textBillTotal(){
+    instanceForText.calculated(showValue);
+    textBillTotal()
+})
 
-    instance.calculate(billTypeTextElem.value);
-    var colorChange = instance.color();
+function textBillTotal() {
+
+    var colorChange = instanceForText.color();
 
     var templateData = {
-        callTotal: instance.getCallCost(),
-        smsTotal: instance.getSmsCost(),
-        total: instance.getTotalBill(),
+        callTotal: instanceForText.getCallCost(),
+        smsTotal: instanceForText.getSmsCost(),
+        total: instanceForText.getTotalBill(),
         colorChange
     };
 
@@ -30,4 +36,4 @@ function textBillTotal(){
 
 }
 
-textTotalAddBtn.addEventListener('click', textBillTotal);
+// textTotalAddBtn.addEventListener('click', textBillTotal);

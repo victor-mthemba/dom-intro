@@ -4,7 +4,7 @@ function TextBill() {
     var smsCost = 0;
     var totalBill = 0;
 
-    function calculate(theBill) {
+    function calculated(theBill) {
 
         if(theBill === "call") {
             callCost += 2.75;
@@ -43,6 +43,6 @@ function TextBill() {
         getSmsCost,
         getTotalBill,
         color,
-        calculate,
+        calculated,
     }
 }
