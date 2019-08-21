@@ -5,10 +5,11 @@ function CalculateBill() {
         var items = string.split(',');
         billTotal = 0;
         for (var x = 0; x < items.length; x++) {
-            if (items[x] === 'call') {
+            var itemArray = items[x].trim();
+            if (itemArray === 'call') {
                 billTotal += 2.75;
             }
-            else if (items[x] === 'sms') {
+            else if (itemArray === 'sms') {
                 billTotal += 0.75;
             }
         }

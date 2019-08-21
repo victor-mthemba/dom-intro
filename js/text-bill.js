@@ -4,35 +4,30 @@ var callsTotalElem = document.querySelector(".callTotalOne");
 var smsTotalElem = document.querySelector(".smsTotalOne")
 var totalCostElem = document.querySelector(".totalOne");
 
-var callsTotalOne = 0;
-var smsTotalOne = 0;
+var instance = TextBill();
+
+var totalsElm = document.querySelector(".billTotals");
+var template = document.querySelector(".totalsTemplates").innerHTML;
+
+var totalsTemplates = Handlebars.compile(template);
+textBillTotal();
 
 function textBillTotal(){
-    
-    var billTypeEntered = billTypeTextElem.value;
-    
-    // update the correct total
-    if (billTypeEntered === "call"){
-        callsTotalOne += 2.75
-    }
-    else if (billTypeEntered === "sms"){
-        smsTotalOne += 0.75;
-    }
-    
-    //update the totals that is displayed on the screen.
-    callsTotalElem.innerHTML = callsTotalOne.toFixed(2);
-    smsTotalElem.innerHTML = smsTotalOne.toFixed(2);
-    var totalCostOne = callsTotalOne + smsTotalOne;
-    totalCostElem.innerHTML = totalCostOne.toFixed(2);
 
-     //color the total based on the criteria
-     if (totalCostOne >= 50){
-        // adding the danger class will make the text red
-        totalCostElem.classList.add("danger");
-    }
-    else if (totalCostOne >= 30){
-        totalCostElem.classList.add("warning");
-    }
+    instance.calculate(billTypeTextElem.value);
+    var colorChange = instance.color();
+
+    var templateData = {
+        callTotal: instance.getCallCost(),
+        smsTotal: instance.getSmsCost(),
+        total: instance.getTotalBill(),
+        colorChange
+    };
+
+    var dataInTemp = totalsTemplates(templateData)
+
+    totalsElm.innerHTML = dataInTemp;
+
 }
 
 textTotalAddBtn.addEventListener('click', textBillTotal);

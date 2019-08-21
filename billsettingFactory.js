@@ -7,23 +7,38 @@ function TotalBill() {
     var callCost = 0;
     var smsCost = 0;
     var warnLevel = 0;
-    var critLevel = 0;
-
-    function add (billType){
-    
-            if (billType === "call") {
-                callTotals += callCost;
-            }
-            else if (billType === "sms") {
-                smsTotals += smsCost;
-            }
-    }
+    var critLevel = 0; 
 
     function updateData (call,sms,warn,crit) {
         callCost = Number(call);
         smsCost = Number(sms);
         warnLevel = Number(warn);
         critLevel = Number(crit);
+    }
+
+    function add(billType){
+        if(billType === "call") {
+            if(totalTwoS <= critLevel)
+            {
+                callTotals += callCost;
+            }
+        }
+
+        else if(billType === "sms") {
+            if(totalTwoS <= critLevel)
+            {
+                smsTotals += smsCost;
+            }
+        }
+}
+
+    function getCallTotal(){
+        return callTotals.toFixed(2);
+    }
+
+    function getSmsTotal(){
+
+        return smsTotals.toFixed(2);
     }
 
     function getTotal()
@@ -33,30 +48,41 @@ function TotalBill() {
     }
 
     function checkCritical(){
-        return totalTwoS >= critLevel;
+        if(totalTwoS >= critLevel){
+            return "critical";
+        }
     }
 
     function checkWarning(){
-        return totalTwoS >= warnLevel;
+       if(totalTwoS >= warnLevel){
+        return "warning";
+       }
     }
 
-    function getCallTotal(){
-        return callTotals.toFixed(2);
-    }
+   
+    // function warningColor() {
+    //     if(totalTwoS >= warnLevel)
+    //     {
+    //         return "warning";
+    //     }
+    // }
 
-    function getSmsTotal(){
-        return smsTotals.toFixed(2);
-    }
+    // function criticalColor() {
+    //     if(totalTwoS >= critLevel) {
+    //         return "critical";
+    //     }
+    // }
+
 
     return {
-
+        // criticalColor,
+        // warningColor,
         getTotal,
         updateData,
         add,
         checkCritical,
         checkWarning,
         getCallTotal,
-        getSmsTotal, 
-
+        getSmsTotal
     }
 }

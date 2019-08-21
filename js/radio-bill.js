@@ -4,40 +4,35 @@ var callsTotalElemRadio = document.querySelector(".callTotalTwo");
 var smsTotalElemRadio = document.querySelector(".smsTotalTwo")
 var totalCostElemRadio = document.querySelector(".totalTwo");
 
+var instance = RadioBill();
 
-var callsTotal = 0;
-var smsTotal = 0;
+var totalsElmOne = document.querySelector(".billTotalOne");
+var templateOne = document.querySelector(".totalsTemplates").innerHTML;
 
-function textBillTotal(){
-    // get the value entered in the billType textfield
-    if (checkedRadioBtn){
-        var billItemType = document.querySelector("input[name='billItemType']:checked");
+var totalsTemplatesOne = Handlebars.compile(templateOne);
+radioBillTotal();
+
+function radioBillTotal(){
+
+    var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
+
+    if (checkedRadioBtn) {
+        billItemType = checkedRadioBtn.value;
+        instance.calculateOne(billItemType);
     }
-        // billItemType will be 'call' or 'sms'
-        if (billItemType.value === "call"){
-            callsTotal += 2.75
-        }
-        else if (billItemType.value === "sms"){
-            smsTotal += 0.75;
-        }
-        
+
+    var colorChange = instance.color();
     
-    //update the totals that is displayed on the screen.
-    callsTotalElemRadio.innerHTML = callsTotal.toFixed(2);
-    smsTotalElemRadio.innerHTML = smsTotal.toFixed(2);
-    var totalCost = callsTotal + smsTotal;
-    totalCostElemRadio.innerHTML = totalCost.toFixed(2);
+    var templateDataOne = {
+        callTotal: instance.getCallCost(),
+        smsTotal: instance.getSmsCost(),
+        total: instance.getTotalBill(),
+        colorChange
+    };
 
-      //color the total based on the criteria
-      if (totalCost >= 50){
-        // adding the danger class will make the text red
-        totalCostElemRadio.classList.add("danger");
-    }
-    else if (totalCost >= 30){
-        totalCostElemRadio.classList.add("warning");
-    }
-    
+    var dataInTempOne = totalsTemplates(templateDataOne);
+    totalsElmOne.innerHTML = dataInTempOne;
 }
 
 
- checkedRadioBtn.addEventListener('click', textBillTotal);
+ checkedRadioBtn.addEventListener('click', radioBillTotal);

@@ -23,10 +23,10 @@ function textBillTotal() {
     if (radioAddBtn) {
         var billItemTypeTwos = document.querySelector("input[name='billItemTypeWithSettings']:checked");
 
-        calculateInstanceTwo.add(billItemTypeTwos.value);
+         calculateInstanceTwo.add(billItemTypeTwos.value);
     }
     // //color the total based on the criteria
-    colorTest();
+     colorTest();
 
     callTotalElement.innerHTML = calculateInstanceTwo.getCallTotal();
     smsTotalElement.innerHTML = calculateInstanceTwo.getSmsTotal();
@@ -61,5 +61,7 @@ function colorTest(){
     else{
         totalElement.classList.remove("warning");
         totalElement.classList.remove("danger");
+        radioAddBtn.disabled = false;
+
     }
 }

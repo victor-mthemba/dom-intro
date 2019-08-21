@@ -42,6 +42,17 @@ describe("The  bill setting", function(){
       assert.equal(true, totalbill.checkWarning());
     });
 
+    it("should be able to return warning if total is greater than  warning setting", function(){
+      var totalbill = TotalBill();
 
+        totalbill.updateData(5,5,15,0);
+        totalbill.add('call');
+        totalbill.add('sms');
+        totalbill.add('call');
+        totalbill.add('call');
+        totalbill.getTotal();
+
+      assert.equal('warning', totalbill.warningColor());
+    });
 
 });
